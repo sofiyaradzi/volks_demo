@@ -1,0 +1,86 @@
+{% extends 'registration/staff_base.html' %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-body">
+                <h4>Search Filter</h4>
+
+                <form action='' method='POST'>
+                    <div class="form-group row">
+                        {%csrf_token%}      
+                        
+                        <div class="col-lg-4">
+                        <label for='start_date'>Start date:</label>      
+                        <input name='start_date' type='date' id='start_date' class="form-control" >
+                        </div>
+                        
+                        <div class="col-lg-4">  
+                        <label for='end_date'>End date:</label>   
+                        <input name='end_date' type='date' id='end_date' class="form-control">
+                        </div>
+            
+                        <div class="col-lg-4"> 
+                        <br>
+                        <input type ='submit' value = 'Filter' class="btn btn-secondary">
+                        </div>
+                        <br>
+                    </div>
+                </form>
+        
+        </div>
+    </div>
+
+    <br>
+    <div class="card">
+        <div class="card-body">
+        
+        {% if start_date and end_date %}
+        <h4>Service Details from "{{start_date}}" to "{{end_date}}"</h4>
+
+        {% elif start_date %}
+        <h4>Service Details from "{{start_date}}"</h4>
+
+        {% elif end_date %}
+        <h4>Service Details up to "{{end_date}}"</h4>
+
+        {% else %}
+        <h4>Service Details for {{today|date:'M,Y' }}</h4>
+        {% endif %}
+
+        <table class="table table-hover">
+        <thead>
+            <tr>
+            <th scope="col">Technician</th>
+            <th scope="col" class="text-center">No. of Services Booked</th>
+            <th scope="col" class="text-center">No. of Services Completed</th>
+            <th scope="col" class="text-center">No. of Services Pending</th>
+            </tr>
+        </thead>
+
+        <tbody>
+    
+            {% for tech in technicians %}
+
+            <tr>
+            <td> {{tech}} </td>
+            <td class="text-center"> {{tech.all}} </td>
+            <td class="text-center"> {{tech.completed}} </td>
+            <td class="text-center"> {{tech.pending}} </td>
+            {% comment %} <td> <a href="{% url 'customer_service_update' services.id %}" class="btn btn-outline-secondary btn-sm">View service</a> </td> {% endcomment %}
+            
+            </tr>
+            {% endfor %}
+          
+        </tbody>
+        </table>
+        
+      
+        </div>
+    </div>
+
+
+   
+</div>
+{% endblock content %}

@@ -1,0 +1,104 @@
+{% extends 'customer/customer_base.html' %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-body">
+        <h4>Search Filter</h4>
+         
+        
+             <form action='' method='GET'>
+                <div class="form-group row">
+
+                
+                {{myFilter.form}}       
+               
+
+               
+
+                <div class="col-lg-4">
+                <input type ='submit' value = 'Filter' class="btn btn-secondary">
+                </div>
+
+                <br>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                <center>
+                <h4>No. of Services Booked</h4>
+                <h5>{{service_count}}</h5>
+                </center>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                <center>
+                <h4>No. of Services Completed</h4>
+                <h5>{{completed_count}}</h5>
+                </center>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                <center>
+                <h4>No. of Services Pending </h4>
+                <h5> {{pending_count}}</h5>
+                </center>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+
+    <br>
+    <div class="card">
+        <div class="card-body">
+        <h4>Service Details</h4>
+        <table class="table table-hover">
+        <thead>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Plate Number</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Technician</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+    
+            {% for service in services %}
+
+            <tr>
+            <td>{{service.id}}</td>
+            <td>{{service.date}}</td>
+            <td>{{service.car}}</td>
+            <td> {{service.customer}}</td>
+            <td> {{service.technician}}</td>
+            <td> {{service.status}}</td>
+            <td> <a href="{% url 'customer_service_update' service.id %}" class="btn btn-outline-secondary btn-sm">View service</a> </td>
+            
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        
+       
+        </div>
+    </div>
+</div>
+{% endblock content %}

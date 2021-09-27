@@ -1,0 +1,207 @@
+<html>
+  <head>
+  <style>
+ 
+    @page {
+            size: a4 portrait;
+            @frame main_frame {           /* Static Frame */
+                left: 50pt; top: 20pt; right: 50pt;
+            }
+    }
+
+    table.style1 {
+      width: 60%;
+      height:20px;
+      font-size: 12px;  
+
+    }
+    table.style2{
+      width: 60%;
+      height:60px;
+      vertical-align:bottom;
+       {% comment %} border: 1px solid black {% endcomment %}
+    }
+
+    table.style3{
+      height:auto;
+      font-size: 12px;  
+     border: 1px solid black
+      {% comment %} text-align:center; {% endcomment %}
+    }
+
+    table.style4{
+      height:30px;
+      font-size: 12px;  
+      border-bottom: 0.5px solid black;
+     
+    }
+
+    table.style5{
+      height:120px;
+      text-align:center;
+      font-size: 12px;  
+       border: 1px solid black
+    }
+
+    table.style6 {
+      font-size: 12px; 
+      
+    }
+
+    .jobcard{
+      text-align:right;
+      font-size: 33px;
+      font-weight: 700;
+    }
+
+    .header{
+      text-align:right;
+      vertical-align:bottom;
+      font-size: 12px;  
+      font-style:italic;
+    }
+
+    .desc {
+        width: 80%;
+        text-align:left;
+        }
+
+
+    .price{
+      text-align:right;
+      vertical-align:bottom;
+      font-size: 12px;  
+      
+    }
+    .indent{
+      text-indent: 30px;
+      vertical-align:bottom;
+      font-size: 12px;  
+    }
+    
+    </style>
+    </head>
+
+<body>
+  <div id="main_frame" >
+
+      <table class="style2">
+        <tr>
+          <td rowspan="2" ><img src="images/logo6.png" width="130px" height="130px" > </td>
+          <td class="jobcard" >INVOICE</td>
+        </tr>
+        
+        <tr>
+          <td class="header"  > 
+          Service ID: {{service.id}} <br>
+          Service Advisor : {{service.service_advisor}}<br>
+          Service Date : {{service.date}}<br>
+          Invoice Date: {% now "j F, Y" %}
+          </td>
+        </tr>
+      </table>
+
+    <br><br>
+    <table class="style1">
+      <tr>
+          <th style="text-align:left">Customer Details</th>
+          <th style="text-align:left">Car Details </th>
+      </tr>
+      <tr>
+          <td>Customer Name :{{service.customer}}</td>
+          <td>Plate Number: {{service.car}}</td>
+      </tr>
+      <tr>
+          <td >Phone Number: {{service.customer.phone_number}}</td>
+          <td >Car Model: {{service.car.car_model}}</td>
+      </tr>
+      <tr>
+          <td>Email: {{service.customer.email}}</td>
+          <td>Chasis Number: {{service.car.chasis_number}}</td>
+      </tr>
+    </table>
+
+    <hr>
+
+
+    <br>
+    
+
+                        <table class="style4">
+                        <thead>
+                            <tr>
+                            <th class="desc">Service Description</th>
+                            <th class="price">Price (RM)</th>
+                            </tr>
+                        </thead>
+                        {% for desc in service.servicedescription_set.all %}
+                        
+                        <tr>
+                        <td class="indent"> {{desc}} </td>
+                        <td class="price"> {{desc.price}} </td>
+                     
+                        </tr>
+                        {% endfor %}
+                        <tfoot class="price">
+                        <tr>
+                        <td><b> Subtotal <b></td>
+                        <td><b> {{subtotal|floatformat:2}} <b> </td>
+                        </tr>
+                        <tr>
+                        <td> Discount({{service.discount_unit}}) </td>
+                        <td> {{service.discount}} </td>
+                        </tr>
+                        <tr>
+                        <td><b> Total including 6% GST<b></td>
+                        <td><b> {{total|floatformat:2}} <b> </td>
+                        </tr>
+                        </tfoot>
+                        </table>
+
+    <br><br>
+
+    
+    
+
+    <table class="style6">
+      <tr>
+        <td>Next Service Date: {{service.next_service_date}} <br><br>
+        Next Service Remarks:{{service.next_service_remarks}}
+        </td>
+      </tr>
+    </table>
+<br><br>
+
+ <hr>
+    <br> 
+<table class="style6" >
+      <tr >
+        <td>Thank you for trusting us with your {{service.car.car_model}}, {{service.customer}}!<br>
+        Its our pleasure to make your ride safe. <br>
+        We look forward for your next visit.<br>
+        <br>
+        Sincerely, <br>
+        Volks Maniac Garage
+
+        </td>
+      </tr>
+
+    </table>
+
+    <br><br> <br><br>  <br><br>  <br><br>
+<br><br> <br><br>  
+
+  </div> 
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+ 

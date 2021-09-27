@@ -1,0 +1,19 @@
+{% extends 'customer/customer_base.html' %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h1>Update Customer</h1>
+            <form action='' method='post'>
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type ='submit' value = 'Update' class="btn btn-secondary">
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

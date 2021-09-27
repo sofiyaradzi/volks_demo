@@ -1,0 +1,124 @@
+{% extends 'customer/customer_base.html' %}
+
+{% block content %}
+
+
+    <div class="container">
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <h1>Customer Profile</h1>
+                        <b>Name:</b> {{customer}} <br>
+                        <b>Phone Number:</b> {{customer.phone_number}} <br>
+                        <b>Email:</b> {{customer.email}}
+                    </div>
+                    <div class="col-3">
+                        <br><br><br>
+                        <a href="{% url 'customer_update' customer.id %}" class="btn btn-outline-secondary col-12">Update Customer Profile</a>
+                    </div>
+                    <div class="col-3">
+                        <br><br><br>
+                        <a href="{% url 'customer_car_register' customer.id %}" class="btn btn-secondary col-12">Register New Car</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    
+    <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+    
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <br>
+                <h4>Customer's Car</h4>
+                <br>
+                {% for car in customer.car_set.all %}
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <b>Plate Number:</b> {{car}}<br>
+                                <b>Car Model:</b> {{car.car_model}}<br>
+                                <b>Chasis Number:</b> {{car.chasis_number}}<br>
+                                <center>
+                                    <a href="{% url 'customer_car_update' customer.id car.plate_number %}" class="btn btn-outline-secondary col-5 btn-sm">update car</a>
+                                    <a href="{% url 'customer_car_delete' customer.id car.plate_number %}" class="btn btn-outline-danger col-5 btn-sm" >delete car</a>
+                                    <br> 
+                                    <a href="{% url 'customer_car_details' car.plate_number %}" class="btn btn-outline-dark col-12 btn-sm">View Details</a>
+                                    <a href="{% url 'customer_service_book' customer.id car.plate_number %}" class="btn btn-outline-primary col-12 btn-sm">Book Service</a>
+                                </center>
+                            </div>
+                        </div>
+                        </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+        <div class="card">
+            <div class="card-body">
+
+                
+                    <h4>Service History</h4>
+
+                   
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Service Advisor</th>
+                            <th scope="col">Technician</th>
+                            <th scope="col">Plate Number</th>
+                            {% comment %} <th scope="col">Payment Method</th> {% endcomment %}
+                            <th scope="col">Status</th>
+                            <th scope="col">Replacement Parts</th>
+                            {% comment %} <th scope="col">Service Description</th> {% endcomment %}
+                            {% comment %} <th scope="col">Price</th> {% endcomment %}
+                            <th scope="col"></th>
+                            </tr>
+                        </thead>
+
+                    <tbody>
+
+                    {% for service in customer.service_set.all %}
+                    <tr>
+                    <td> {{service.id}}  </td>
+                    <td> {{service.date}}  </td>
+                    <td> {{service.service_advisor}}  </td>
+                    <td> {{service.technician}}  </td>
+                    <td> {{service.car}}  </td>
+                    {% comment %} <td> {{service.payment_status}}  </td> {% endcomment %}
+                    <td> {{service.status}}  </td>
+                    <td> {{service.replacement_parts}}  </td>
+            
+                    {% comment %} <td>
+                        {% for desc in service.servicedescription_set.all %}
+                             {{desc}} 
+                            <br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for desc in service.servicedescription_set.all %}
+                             {{desc.price}} 
+                            <br>
+                        {% endfor %}
+                    </td> {% endcomment %}
+                    <td> <a href="{% url 'customer_service_update' service.id %}" class="btn btn-outline-secondary btn-sm">view</a> </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                
+            </div>
+        </div>
+
+
+
+    </div>
+{% endblock content %}
+
+{% comment %} add table of service history {% endcomment %}

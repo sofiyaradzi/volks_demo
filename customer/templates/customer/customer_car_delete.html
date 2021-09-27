@@ -1,0 +1,21 @@
+{% extends 'customer/customer_base.html' %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <center>
+                <h1>Delete car "{{car.plate_number}}"?</h1>
+                <br>
+                <form action='' method='post'>
+                    {% csrf_token %}
+                    <input type ='submit' value = 'Yes' class="btn btn-danger">
+                    <a href="{% url 'customer_profile' car.customer_id %}" class="btn btn-outline-secondary">No</a>
+                </form>
+            </center>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

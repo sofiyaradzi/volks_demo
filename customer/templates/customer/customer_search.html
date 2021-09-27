@@ -1,0 +1,107 @@
+{% extends 'customer/customer_base.html' %}
+
+
+
+
+
+{% block content %}
+<div class="container">
+    <br>
+    
+            <div class="card">
+                <div class="card-body">
+                    <h1>Search Customer</h1>
+
+                    <form action='' method='POST'>
+                    <div class="form-group">
+                        {%csrf_token%}            
+                        <input name='searched' type='text' placeholder='Search phone number or plate number without space' class="form-control"  aria-describedby="emailHelp">
+                        <small class="form-text text-muted">hit 'enter' to search</small>
+                        <br>
+                    </div>
+                    </form>
+                    
+                </div>
+            </div>
+ 
+                <div class="card">
+                    <div class="card-body">
+                        {% if searched %}
+                            <h4>Search results for "{{searched}}"</h4>
+
+                            <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col">Customer Name</th>
+                                <th scope="col">Phone Number</th>
+                                <th scope="col">Plate Number</th>
+                                <th scope="col">Car Model</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody> 
+
+                                {% for customer in customers %}
+                                    <tr>
+                                    <td> {{customer.name}} </td>
+                                    <td> {{customer.phone_number}} </td>
+
+                                    <td>    {% for car in customer.car_set.all %}
+                                                {{car}}
+                                                <br>
+                                            {% endfor %}
+                                    </td>
+                                    <td> {% for car in customer.car_set.all %}
+                                                {{car.car_model}}
+                                                <br>
+                                            {% endfor %}                            
+                                    </td>
+
+                                    <td> <a href="{% url 'customer_profile' customer.id %}" class="btn btn-outline-secondary btn-sm">Go to profile </a></td>    
+
+                                    <td> {% for car in customer.car_set.all %}
+                                                <a href="{% url 'customer_car_details' car.plate_number %}" class="btn btn-outline-dark col-12 btn-sm">View car details </a>
+                                                <br>
+                                            {% endfor %}
+                                    
+                                    
+                                    </td>
+                                    <td> {% for car in customer.car_set.all %}
+                                                <a href="{% url 'customer_service_book' customer.id car.plate_number %}" class="btn btn-outline-primary col-12 btn-sm">Book service</a>
+                                                <br>
+                                            {% endfor %} 
+                                    
+                                    </td>
+
+                                    </tr>
+ 
+                                {% empty %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                    </symbol>
+                                    </svg>
+                                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                        <div>
+                                            No data found. 
+                                            <a href="{% url 'customer_register' %}"  class="alert-link">Please register customer</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                 </tbody>
+                                </table>
+                                <br>
+
+                        {% endif %} 
+
+
+            </div>
+        </div> 
+
+</div>
+{% endblock content%}
+

@@ -1,0 +1,71 @@
+{% extends 'customer/customer_base.html' %}
+
+{% block content %}
+<div class="container">
+<br>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <h3>Customer Profile</h3>
+                    <b>Name:</b> {{car.customer}} <br>
+                    <b>Phone Number:</b> {{car.customer.phone_number}} <br>
+                    <b>Email:</b> {{car.customer.email}}
+                    <br><br>
+                    <a href="{% url 'customer_profile' car.customer.id %}" class="btn btn-outline-secondary col-12 btn-sm">back to profile </a>
+                </div>
+
+                <div class="col-6">
+                    <h3>Car Details</h3>
+                    <b>Plate Number:</b> {{car}}<br>
+                    <b>Car Model:</b> {{car.car_model}}<br>
+                    <b>Chasis Number:</b> {{car.chasis_number}}
+                    <br><br>
+                    <a href="{% url 'customer_service_book' car.customer.id car.plate_number %}" class="btn btn-outline-primary col-12 btn-sm">Book Service</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-body">
+
+    
+                <h4>{{car}} Service History</h4>
+
+                <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Service Advisor</th>
+                            <th scope="col">Technician</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Replacement Parts</th>
+                            <th scope="col"></th>
+                            </tr>
+                        </thead>
+
+                    <tbody>
+
+                    {% for service in car.service_set.all %}
+                    <tr>
+                    <td> {{service.id}}  </td>
+                    <td> {{service.date}}  </td>
+                    <td> {{service.service_advisor}}  </td>
+                     <td> {{service.technician}}  </td>
+                    <td> {{service.status}}  </td>
+                    <td> {{service.replacement_parts}}  </td>
+                    <td> <a href="{% url 'customer_service_update' service.id %}" class="btn btn-outline-secondary btn-sm">view</a> </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+        </div>
+    </div>
+
+
+</div>
+{% endblock content %}
