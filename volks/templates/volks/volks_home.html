@@ -6,26 +6,8 @@
     <div class="card">
         <div class="card-body">
                 <h1>Welcome!</h1>
-               This is a web application proposal for Volks Maniac Garage. <br>
-               Currently, the app has two users (staffs).<br>
-               <br>
-               The 'Customer' tab allows for new customer registrations, searching existing customers 
-               and searching services.<br>
-               Each customer has a profile where both staffs can book new services for the customer
-               and view related details such as the number of cars own and the service history
-               related to the customer.<br>
-               Each car also has a profile which displays the service history related to the car.
-               (Honestly, thats kinda redundant) <br>
-
-               When a new service is booked, a Jobcard can be printed once (Let me know if you need to print more than once). <br>
-               After the service is updated with the related info, an Invoice can be printed.<br>
-               <br>
-               The other staff has access to more tabs which are the Inventory and Staff tabs. <br>
-               These tabs may be developed to allow inventory and staff management in the near future.<br>
-               As of now, the other staff is only able to register new Technicians.
-                
-                <br>
-                
+                {% if user.is_authenticated %} Have a great day {{user.first_name}}.
+                {% else %} Please login to continue. {% endif %}
                 
         </div>
     </div>
