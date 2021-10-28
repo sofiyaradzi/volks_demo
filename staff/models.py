@@ -158,9 +158,9 @@ class UserProfile (models.Model):
         if nric.isdigit() == False:
             raise ValidationError('Only enter numbers')
     user = models.OneToOneField(User, null=True, on_delete=CASCADE)
-    phone_number = models.CharField(unique=True, max_length=15,
+    phone_number = models.CharField(max_length=15,
                                     validators=[MinLengthValidator(11), phone_check])
-    nric = models.CharField(unique=True, max_length=12, validators=[
+    nric = models.CharField(max_length=12, validators=[
                             MinLengthValidator(12), nric_check])
     address = models.TextField(blank=True)
     date_joined = models.DateField(
