@@ -1,4 +1,4 @@
-from customer.models import Customer, Car, Service, ServiceDescription
+from customer.models import Customer, Car, Service
 from django import forms
 
 

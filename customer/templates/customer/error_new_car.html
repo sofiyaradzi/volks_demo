@@ -1,0 +1,22 @@
+{% extends 'customer/customer_base.html' %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <center>
+                <h4>Error</h4>
+                
+                Plate number existed
+                <br> <br>
+
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-outline-secondary">Back</a>
+
+                
+            </center>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

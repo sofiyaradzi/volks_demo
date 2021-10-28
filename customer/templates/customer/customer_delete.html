@@ -1,0 +1,33 @@
+{% extends 'customer/customer_base.html' %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <center>
+                <h4>Delete Customer "{{customer}}", including cars and services? </h4>
+            
+                Cars owned by {{customer}}: <br>
+                {% for car in customer.car_set.all%}
+                {{car}} <br>
+                {% endfor %}
+
+                <br><br>
+
+                Number of services done by {{customer}}: <br>
+                {{customer.service_set.all.count}}
+                
+                <br><br>
+                 <form action='' method='post'>
+                    {% csrf_token %}
+                    <input type ='submit' value = 'Yes' class="btn btn-danger">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-outline-secondary">No</a>
+                    
+                </form> 
+            </center>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

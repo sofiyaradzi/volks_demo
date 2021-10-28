@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer, Car, Service, ServiceDescription
+from .models import Customer, Car, Service
 from import_export.admin import ImportExportModelAdmin
 from import_export.widgets import ForeignKeyWidget
 from import_export import resources, fields
@@ -69,4 +69,3 @@ class ServiceDescriptionAdmin(admin.ModelAdmin):
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Car, CarAdmin)
 admin.site.register(Service, ServiceAdmin)
-admin.site.register(ServiceDescription, ServiceDescriptionAdmin)

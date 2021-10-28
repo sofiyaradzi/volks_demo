@@ -3,19 +3,28 @@
 {% block content %}
 <div class="container">
     <br>
-    <div class="card">
+    <center>
+    <div class="card" style="width: 18rem;">
         <div class="card-body">
+               
                 <h1>Staff Login</h1>
                
                 <br>
-                
                 <form action='' method='post' >
                     {% csrf_token %}
-                    {{form.as_p}}
-                
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="Username">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" placeholder="Password">
+                    </div>
+                    <br>
                     <input type ='submit' value = 'Login' class="btn btn-secondary">
                 </form>
+                
         </div>
     </div>
+    </center>
 </div>
 {% endblock content %}

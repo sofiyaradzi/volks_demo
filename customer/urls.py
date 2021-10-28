@@ -20,7 +20,11 @@ urlpatterns = [
     path('jobcard/<service_id>', views.customer_jobcard, name='customer_jobcard'),
     path('service/<service_id>',
          views.customer_service_update, name='customer_service_update'),
+    path('delete_service/<service_id>/<customer_id>', views.customer_service_delete,
+         name='customer_service_delete'),
     path('search_service', views.customer_search_service,
          name='customer_search_service'),
+    path('delete_customer/<customer_id>', views.customer_delete,
+         name='customer_delete'),
 
 ]

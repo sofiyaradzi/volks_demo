@@ -14,6 +14,10 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+# class Sample (models.Model):
+#     tittle = models.CharField(max_length=254)
+
+
 class Customer (models.Model):
     def phone_check(phone_number):
         if phone_number.isdigit() == False:
@@ -37,9 +41,14 @@ class Customer (models.Model):
 
 
 class Car (models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    # def plate_check(plate_number):
+    #     if Car.objects.filter(
+    #             plate_number__iexact=plate_number):
+    #         raise ValidationError('Plate Number existed')
+
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     plate_number = models.CharField(
-        max_length=10,  unique=True)
+        max_length=20,  unique=True)  # validators=[plate_check]
     chasis_number = models.CharField(max_length=30, blank=True)
     car_model = models.CharField(max_length=254, blank=True)
     date_registered = models.DateField(auto_now_add=True)
@@ -69,13 +78,13 @@ class Service (models.Model):
 
     date = models.DateField(
         auto_now=False, auto_now_add=True)
-    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
-    car = models.ForeignKey(Car, on_delete=models.PROTECT)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
     service_advisor = models.CharField(max_length=20, blank=True, null=True)
     customer_remarks = models.TextField()
     car_mileage = models.IntegerField(blank=True, null=True)
     technician = models.ForeignKey(User, limit_choices_to={
-                                   'groups__name': "Technician"}, on_delete=models.PROTECT, blank=True, null=True)
+                                   'groups__name': "Technician"}, on_delete=models.SET_NULL, blank=True, null=True)
     inspection = models.TextField(blank=True)
     job_dateline = models.DateField(
         auto_now=False, auto_now_add=False, blank=True, null=True)
@@ -90,14 +99,14 @@ class Service (models.Model):
         return self.id
 
 
-class ServiceDescription (models.Model):
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    description = models.CharField(max_length=300)
-    price = models.DecimalField(decimal_places=2, max_digits=6)
+# class ServiceDescription (models.Model):
+#     service = models.ForeignKey(Service, on_delete=models.CASCADE)
+#     description = models.CharField(max_length=300)
+#     price = models.DecimalField(decimal_places=2, max_digits=6)
 
-    def __str__(self):
-        return self.description
+#     def __str__(self):
+#         return self.description
 
-    def save(self, *args, **kwargs):
-        self.description = self.description.capitalize()
-        return super(ServiceDescription, self).save(*args, **kwargs)
+#     def save(self, *args, **kwargs):
+#         self.description = self.description.capitalize()
+#         return super(ServiceDescription, self).save(*args, **kwargs)

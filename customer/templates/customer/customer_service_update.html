@@ -38,10 +38,9 @@
                 
                 <a href="{% url 'customer_profile' service.customer.id %}" class="btn btn-outline-primary  btn-sm" >Go to profile </a>
                 <a href="{% url 'customer_car_details' service.car.plate_number %}" class="btn btn-outline-dark  btn-sm">View car details</a>
-                <a href="{% url 'customer_jobcard' service.id %}" class="btn btn-outline-success  btn-sm" target ="_blank">Print Jobcard</a>        
-               
-               
-                
+                <a href="{% url 'customer_jobcard' service.id %}" class="btn btn-outline-success  btn-sm" target ="_blank">Print Jobcard</a>
+                <a href="{% url 'customer_service_delete' service.id service.customer.id %}" class="btn btn-outline-danger  btn-sm">Delete Service</a>          
+                               
                 
                 
                 </div>

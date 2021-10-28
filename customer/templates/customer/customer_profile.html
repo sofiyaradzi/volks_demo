@@ -14,14 +14,34 @@
                         <b>Phone Number:</b> {{customer.phone_number}} <br>
                         <b>Email:</b> {{customer.email}}
                     </div>
-                    <div class="col-3">
+
+                    <div class="col-6">
+                       <center>
                         <br><br><br>
-                        <a href="{% url 'customer_update' customer.id %}" class="btn btn-outline-secondary col-12">Update Customer Profile</a>
+                        <a href="{% url 'customer_update' customer.id %}" class="btn btn-outline-secondary col-10 btn-sm">Update Customer Profile</a>
+                   
+                        
+                        <br>
+                        <a href="{% url 'customer_car_register' customer.id %}" class="btn btn-secondary col-5 btn-sm">Register New Car</a>
+                        
+                     
+                        
+                        <a href="{% url 'customer_delete' customer.id %}" class="btn btn-danger col-5 btn-sm">Delete Customer</a>
+                        </center>
+
+
+
                     </div>
-                    <div class="col-3">
-                        <br><br><br>
-                        <a href="{% url 'customer_car_register' customer.id %}" class="btn btn-secondary col-12">Register New Car</a>
-                    </div>
+
+
+
+
+
+                    
+
+
+
+
                 </div>
 
             </div>

@@ -5,6 +5,8 @@ from .models import Service
 from datetime import datetime
 from django.utils import timezone
 from django import forms
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 class ServiceFilter(django_filters.FilterSet):
@@ -21,9 +23,15 @@ class ServiceFilter(django_filters.FilterSet):
 
     )
 
+    technician = django_filters.ModelChoiceFilter(
+        queryset=User.objects.filter(groups__name='Technician'),
+        widget=forms.Select(attrs={'class': 'form-control w-25'})
+
+    )
+
     class Meta:
         model = Service
-        fields = ['status']
+        fields = ['status', 'technician']
 
     # @property
     # def qs(self):
